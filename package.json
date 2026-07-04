@@ -1,0 +1,71 @@
+{
+  "name": "hr-glass-pro",
+  "version": "1.0.0",
+  "private": true,
+  "description": "HR Glass PRO web and desktop application",
+  "author": "HR Glass PRO",
+  "copyright": "Copyright © 2026 HR Glass PRO",
+  "main": "electron/main.js",
+  "homepage": "./",
+  "scripts": {
+    "desktop": "electron .",
+    "build:desktop": "electron-builder --win"
+  },
+  "devDependencies": {
+    "electron": "^33.3.0",
+    "electron-builder": "^25.0.0"
+  },
+  "dependencies": {
+    "electron-updater": "^6.3.1"
+  },
+  "build": {
+    "appId": "com.hrglasspro.desktop",
+    "productName": "HR Glass PRO",
+    "copyright": "Copyright © 2026 HR Glass PRO",
+    "artifactName": "HR-Glass-PRO-Setup-${version}.exe",
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "https://updates.hrglasspro.example/"
+      }
+    ],
+    "files": [
+      "index.html",
+      "manifest.json",
+      "styles.css",
+      "sw.js",
+      "firebase.js",
+      "js/**",
+      "assets/**",
+      "electron/**"
+    ],
+    "directories": {
+      "buildResources": "build"
+    },
+    "win": {
+      "target": {
+        "target": "nsis",
+        "arch": [
+          "x64"
+        ]
+      },
+      "icon": "build/icon.ico",
+      "publisherName": "HR Glass PRO",
+      "sign": false,
+      "signAndEditExecutable": false,
+      "verifyUpdateCodeSignature": false,
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": false,
+      "perMachine": true,
+      "deleteAppDataOnUninstall": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "HR Glass PRO",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico"
+    }
+  }
+}
