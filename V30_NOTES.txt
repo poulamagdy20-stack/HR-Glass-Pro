@@ -1,0 +1,14 @@
+HR Glass Pro V30 Ultimate Final
+
+- Crystal UI polish
+- Payroll details toggle
+- Requests toggle
+- Employees toggle
+- Improved print layout
+- Better light/dark contrast
+- Responsive mobile layout
+
+Run:
+npx serve .
+
+Do not open using file://

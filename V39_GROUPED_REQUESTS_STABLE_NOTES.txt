@@ -1,0 +1,5 @@
+V39 Stable
+- Built from V37 stable.
+- Requests grouped by employee.
+- Each employee card has Show/Hide requests.
+- Separate toggleRequests action added to avoid breaking payroll details.

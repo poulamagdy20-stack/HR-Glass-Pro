@@ -1,0 +1,18 @@
+HR Glass Pro V33 - Daily/Weekly Payroll Fix
+
+Fixes:
+- Daily payroll now uses the selected payroll date exactly.
+- Weekly payroll now uses Saturday → Friday.
+- Monthly/hourly use the full selected month.
+- Attendance dates are normalized, so ISO/Firebase-like dates still match.
+- Transactions are filtered with the same period logic.
+- Payroll cards and print receipt show the actual period range.
+
+Payroll formula:
+net = (actual worked hours in selected period × hourly rate)
+      + bonuses
+      - advances
+      - deductions
+      - salary payments
+
+If no attendance in the selected daily/weekly/monthly period, base earning = 0.

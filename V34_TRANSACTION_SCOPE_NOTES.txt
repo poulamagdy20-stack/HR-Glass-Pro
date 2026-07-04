@@ -1,0 +1,18 @@
+HR Glass Pro V34 - Payroll Transaction Scope
+
+New:
+- Manual payroll transaction now has a Transaction Scope:
+  Auto by date / Daily / Weekly / Monthly
+
+How it works:
+- Daily transaction appears in the selected day and rolls up in weekly/monthly totals.
+- Weekly transaction appears in weekly totals and rolls up in monthly totals.
+- Monthly transaction appears only in monthly/hourly month view.
+- Auto by date keeps old behavior: included whenever its date is inside the selected period.
+
+This applies to:
+- Advances
+- Deductions
+- Bonuses
+- Absence deductions
+- Adjustments

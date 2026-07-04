@@ -1,0 +1,5 @@
+HR Glass Pro V37
+- A4 print mode
+- 80mm receipt thermal print mode
+- IN/OUT times are formatted cleanly; Timestamp values are converted.
+- Language toggle reloads the UI to prevent mixed Arabic/English.

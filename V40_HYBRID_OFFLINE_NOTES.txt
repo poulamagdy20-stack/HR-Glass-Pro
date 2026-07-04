@@ -1,0 +1,14 @@
+HR Glass Pro V40 - Hybrid Offline Storage
+
+Added:
+- IndexedDB local queue for offline writes.
+- If device is offline or Firebase is unavailable, new attendance/requests/transactions/settings/shifts/employees are queued locally.
+- When internet returns, queued data syncs to Firebase automatically.
+- Top bar sync indicator:
+  Online / Offline / Sync pending.
+- Button consistency improved for mobile and desktop.
+
+Important:
+- Existing data still lives in Firebase Firestore as the primary database.
+- Offline queued data is stored inside the browser IndexedDB until synced.
+- Do not clear browser storage before sync.

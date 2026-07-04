@@ -1,0 +1,19 @@
+HR Glass Pro V31 - Hourly Payroll Engine
+
+New payroll rule:
+- Monthly salary is converted to hourly rate.
+- Default formula:
+  hourlyRate = salary / 30 / dailyHours
+- Example:
+  salary = 3000
+  dailyHours = 8
+  day value = 3000 / 30 = 100
+  hourlyRate = 100 / 8 = 12.5
+- Daily / Weekly / Monthly / Hourly settlement is calculated from actual attendance hours.
+- If the employee has no attendance hours in the selected period, base salary for that period = 0.
+- Advances, deductions, bonuses, and previous payments are still applied from transactions.
+- Salary payment/settlement subtracts from the remaining net balance.
+- Print receipt layout was redesigned for professional A4 output.
+
+Dark mode:
+- Improved text contrast in cards, forms, details, and payroll areas.

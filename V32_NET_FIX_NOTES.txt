@@ -1,0 +1,15 @@
+HR Glass Pro V32 - Net Salary Calculation Fix
+
+Fixes:
+- Attendance type normalization: IN / OUT / checkin / checkout / Arabic حضور / انصراف.
+- Payroll net is now calculated from actual attendance hours:
+  net = (workedHours × hourlyRate) + bonuses - advances - deductions - salary payments
+- If no attendance hours exist in selected daily/weekly/monthly/hourly period, base earning = 0.
+- Hourly rate default:
+  hourlyRate = salary / 30 / dailyHours
+- Example:
+  salary 3000, dailyHours 8 => hourlyRate 12.5.
+  If employee works 8 hours => base = 100.
+  If employee works 0 hours => base = 0.
+- Net display no longer hides negative balances.
+- Print receipt shows formula and attendance table.

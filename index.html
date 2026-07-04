@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0284c7" />
+  <title>HR Glass Pro</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="loader" class="loader hidden"><div class="spinner"></div><span data-i18n="loading">جاري التحميل...</span></div>
+  <div id="toastRoot" class="toast-root"></div>
+
+  <main id="loginView" class="login-view">
+    <section class="login-card glass">
+      <div class="brand-badge">HR</div>
+      <h1 data-i18n="appTitle">HR Glass Pro</h1>
+      <p data-i18n="loginSub">نظام إدارة الموظفين والحضور والمرتبات</p>
+      <label data-i18n="email">الإيميل</label>
+      <input id="loginEmail" type="email" autocomplete="email" placeholder="admin@company.com" />
+      <label data-i18n="password">كلمة المرور</label>
+      <input id="loginPassword" type="password" autocomplete="current-password" />
+      <button id="loginBtn" class="diamond primary" data-i18n="login">دخول</button>
+      <div class="login-tools">
+        <button id="langBtnLogin" class="pill">EN</button>
+        <button id="themeBtnLogin" class="pill" data-i18n="theme">الوضع</button>
+      </div>
+    </section>
+  </main>
+
+  <main id="appView" class="app-view hidden">
+    <header class="topbar glass">
+      <div class="brand">
+        <div class="brand-badge small">HR</div>
+        <div>
+          <h2>HR Glass Pro</h2>
+          <p id="userLine">...</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button id="installBtn" class="pill hidden" data-i18n="install">تثبيت</button>
+        <button id="langBtn" class="pill">EN</button>
+        <button id="themeBtn" class="pill" data-i18n="theme">الوضع</button>
+        <button id="logoutBtn" class="pill danger" data-i18n="logout">خروج</button>
+      </div>
+    </header>
+
+    <nav id="adminNav" class="nav glass hidden">
+      <button data-section="dashboard" class="nav-btn active" data-i18n="dashboard">الرئيسية</button>
+      <button data-section="employees" class="nav-btn" data-i18n="employees">الموظفين</button>
+      <button data-section="shifts" class="nav-btn" data-i18n="shifts">الشيفتات</button>
+      <button data-section="attendance" class="nav-btn" data-i18n="attendance">الحضور</button>
+      <button data-section="requests" class="nav-btn" data-i18n="requests">الطلبات</button>
+      <button data-section="payroll" class="nav-btn" data-i18n="payroll">المرتبات</button>
+      <button data-section="fingerprint" class="nav-btn" data-i18n="fingerprint">البصمة</button>
+      <button data-section="backup" class="nav-btn" data-i18n="backup">النسخ</button>
+      <button data-section="settings" class="nav-btn" data-i18n="settings">الإعدادات</button>
+    </nav>
+
+    <section id="employeePortal" class="section hidden">
+      <div class="grid two">
+        <div class="glass panel status-panel">
+          <h3 data-i18n="employeePortal">بوابة الموظف</h3>
+          <div id="liveStatus" class="live-status off"><span></span><strong data-i18n="notCheckedIn">لم يسجل حضور اليوم</strong></div>
+          <div id="statusDetails" class="muted"></div>
+          <div class="action-row">
+            <button id="checkInBtn" class="diamond primary" data-i18n="checkIn">تسجيل حضور</button>
+            <button id="checkOutBtn" class="diamond success" data-i18n="checkOut">تسجيل انصراف</button>
+          </div>
+        </div>
+        <div class="glass panel">
+          <h3 data-i18n="myRequests">طلباتي</h3>
+          <div class="form-grid">
+            <select id="empReqType"><option value="leave" data-i18n="leave">إجازة</option><option value="permission" data-i18n="permission">إذن</option><option value="advance" data-i18n="advance">سلفة</option><option value="deduction" data-i18n="deduction">خصم</option><option value="bonus" data-i18n="bonus">حافز</option><option value="overtime" data-i18n="overtime">أوفر تايم</option><option value="absence" data-i18n="absenceDeduction">خصم غياب</option></select>
+            <input id="empReqAmount" type="number" data-ph="amountOptional" placeholder="المبلغ اختياري" />
+            <textarea id="empReqNote" data-ph="note" placeholder="ملاحظات"></textarea>
+          </div>
+          <button id="sendRequestBtn" class="diamond" data-i18n="sendRequest">إرسال طلب</button>
+          <div id="myRequestsList" class="list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="section admin-only">
+      <div class="stats-grid">
+        <div class="glass stat"><span data-i18n="totalEmployees">إجمالي الموظفين</span><strong id="statEmployees">0</strong></div>
+        <div class="glass stat"><span data-i18n="presentNow">حاضر الآن</span><strong id="statPresent">0</strong></div>
+        <div class="glass stat"><span data-i18n="pendingRequests">طلبات معلقة</span><strong id="statRequests">0</strong></div>
+        <div class="glass stat"><span data-i18n="monthPayroll">مرتبات الشهر</span><strong id="statPayroll">0</strong></div>
+      </div>
+    </section>
+
+    <section id="employees" class="section admin-only hidden">
+      <div class="section-head"><h2 data-i18n="employees">الموظفين</h2><button id="newEmployeeBtn" class="diamond primary" data-i18n="addEmployee">إضافة موظف</button></div>
+      <input id="employeeSearch" class="search" data-ph="searchEmployee" placeholder="بحث بالاسم أو ID أو الإيميل" />
+      <div id="employeesList" class="cards"></div>
+    </section>
+
+    <section id="shifts" class="section admin-only hidden">
+      <div class="section-head"><h2 data-i18n="shifts">الشيفتات</h2><button id="newShiftBtn" class="diamond primary" data-i18n="addShift">إضافة شيفت</button></div>
+      <div id="shiftsList" class="cards"></div>
+    </section>
+
+    <section id="attendance" class="section admin-only hidden">
+      <h2 data-i18n="attendance">الحضور والانصراف</h2>
+      <div class="filters glass">
+        <input id="attendanceSearch" data-ph="searchEmployee" placeholder="بحث بالموظف" />
+        <input id="attendanceDate" type="date" />
+        <button id="exportAttendanceBtn" class="diamond" data-i18n="exportCsv">تصدير CSV</button>
+      </div>
+      <div id="attendanceList" class="table-wrap"></div>
+    </section>
+
+    <section id="requests" class="section admin-only hidden">
+      <h2 data-i18n="requests">الطلبات</h2>
+      <input id="requestsSearch" class="search" data-ph="searchRequests" placeholder="بحث باسم الموظف أو ID أو نوع الطلب" />
+      <div id="requestsList" class="cards"></div>
+    </section>
+
+    <section id="payroll" class="section admin-only hidden">
+      <h2 data-i18n="payroll">المرتبات</h2>
+      <div class="filters glass">
+        <input id="payrollSearch" data-ph="searchEmployee" placeholder="بحث باسم أو ID" />
+        <select id="payrollPeriod"><option value="daily" data-i18n="daily">يومي</option><option value="weekly" data-i18n="weekly">أسبوعي</option><option value="monthly" data-i18n="monthly" selected>شهري</option><option value="hourly" data-i18n="hourly">بالساعات</option></select>
+        <input id="payrollDate" type="date" />
+        <button id="exportPayrollBtn" class="diamond" data-i18n="exportCsv">تصدير CSV</button>
+        <button id="newTransactionBtn" class="diamond primary" data-i18n="addPayrollTransaction">إضافة حركة مرتب</button>
+      </div>
+      <div id="payrollList" class="cards"></div>
+    </section>
+
+    <section id="fingerprint" class="section admin-only hidden">
+      <h2 data-i18n="fingerprint">استيراد جهاز البصمة</h2>
+      <div class="glass panel">
+        <p data-i18n="fingerprintHelp">ارفع CSV بالأعمدة: fingerprintId,date,time,type</p>
+        <input id="fingerprintFile" type="file" accept=".csv,text/csv" />
+        <button id="importFingerprintBtn" class="diamond primary" data-i18n="import">استيراد</button>
+        <div id="importResult" class="muted"></div>
+      </div>
+    </section>
+
+    <section id="backup" class="section admin-only hidden">
+      <h2 data-i18n="backupRestore">Backup / Restore</h2>
+      <div class="grid two">
+        <div class="glass panel"><h3 data-i18n="backup">نسخ احتياطي</h3><button id="backupBtn" class="diamond primary" data-i18n="downloadBackup">تحميل نسخة JSON</button></div>
+        <div class="glass panel"><h3 data-i18n="restore">استعادة</h3><input id="restoreFile" type="file" accept=".json" /><button id="restoreBtn" class="diamond danger" data-i18n="restoreNow">استعادة الآن</button></div>
+      </div>
+    </section>
+
+    <section id="settings" class="section admin-only hidden">
+      <h2 data-i18n="settings">الإعدادات</h2>
+      <div class="glass panel form-grid">
+        <label data-i18n="companyName">اسم الشركة</label><input id="setCompanyName" />
+        <label data-i18n="gpsEnabled">تفعيل GPS</label><select id="setGpsEnabled"><option value="false" data-i18n="disabled">إيقاف</option><option value="true" data-i18n="enabled">تشغيل</option></select>
+        <label data-i18n="latitude">خط العرض</label><input id="setLat" type="number" step="any" />
+        <label data-i18n="longitude">خط الطول</label><input id="setLng" type="number" step="any" />
+        <label data-i18n="radius">النطاق بالمتر</label><input id="setRadius" type="number" />
+        <button id="saveSettingsBtn" class="diamond success" data-i18n="saveSettings">حفظ الإعدادات</button>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="employeeDialog" class="modal glass">
+    <form id="employeeForm">
+      <h3 id="employeeDialogTitle" data-i18n="employeeDetails">بيانات الموظف</h3>
+      <div class="form-grid">
+        <input type="hidden" id="empDocId" />
+        <label data-i18n="employeeId">رقم الموظف</label><input id="empCode" readonly />
+        <label data-i18n="name">الاسم</label><input id="empName" required />
+        <label data-i18n="email">الإيميل</label><input id="empEmail" type="email" required />
+        <label data-i18n="tempPassword">باسورد مؤقت</label><input id="empPassword" type="text" />
+        <label data-i18n="phone">الهاتف</label><input id="empPhone" />
+        <label data-i18n="job">الوظيفة</label><input id="empJob" />
+        <label data-i18n="department">القسم</label><input id="empDepartment" />
+        <label data-i18n="salary">الراتب</label><input id="empSalary" type="number" required />
+        <label data-i18n="dailyHours">ساعات اليوم</label><input id="empDailyHours" type="number" step="0.25" value="8" />
+        <label data-i18n="hourRate">سعر الساعة</label><input id="empHourRate" type="number" step="0.01" />
+        <label data-i18n="fingerprintId">كود البصمة</label><input id="empFingerprintId" />
+        <label data-i18n="shift">الشيفت</label><select id="empShift"></select>
+        <label data-i18n="status">الحالة</label><select id="empActive"><option value="true" data-i18n="active">نشط</option><option value="false" data-i18n="suspended">موقوف</option></select>
+      </div>
+      <div class="modal-actions"><button type="button" class="pill" data-close-dialog data-i18n="cancel">إلغاء</button><button type="button" id="saveEmployeeBtn" value="default" class="diamond success" data-i18n="save">حفظ</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="shiftDialog" class="modal glass">
+    <form id="shiftForm">
+      <h3 data-i18n="shiftDetails">بيانات الشيفت</h3>
+      <input type="hidden" id="shiftDocId" />
+      <div class="form-grid">
+        <label data-i18n="shiftName">اسم الشيفت</label><input id="shiftName" required />
+        <label data-i18n="startTime">وقت الحضور</label><input id="shiftStart" type="time" required />
+        <label data-i18n="endTime">وقت الانصراف</label><input id="shiftEnd" type="time" required />
+        <label data-i18n="graceMinutes">سماحية التأخير بالدقائق</label><input id="shiftGrace" type="number" value="15" />
+        <label data-i18n="overtimeAfter">الأوفر تايم بعد ساعة</label><input id="shiftOverAfter" type="number" step="0.25" value="8" />
+        <label data-i18n="workDays">أيام العمل</label><div class="days" id="shiftDays"></div>
+      </div>
+      <div class="modal-actions"><button type="button" class="pill" data-close-dialog data-i18n="cancel">إلغاء</button><button type="button" id="saveShiftBtn" value="default" class="diamond success" data-i18n="save">حفظ</button></div>
+    </form>
+  </dialog>
+
+
+
+  <dialog id="transactionDialog" class="modal glass">
+    <form id="transactionForm">
+      <h3 data-i18n="payrollTransaction">حركة مرتب</h3>
+      <div class="form-grid">
+        <input type="hidden" id="txEmployeeDocId" />
+        <label data-i18n="employee">الموظف</label><select id="txEmployee" required></select>
+        <label data-i18n="type">النوع</label>
+        <select id="txType">
+          <option value="advance" data-i18n="advance">سلفة</option>
+          <option value="deduction" data-i18n="deduction">خصم</option>
+          <option value="bonus" data-i18n="bonus">حافز</option>
+          <option value="absence" data-i18n="absenceDeduction">خصم غياب</option>
+          <option value="adjustment" data-i18n="adjustment">تسوية</option>
+          <option value="salary_payment" data-i18n="salaryPayment">دفع مرتب</option>
+        </select>
+        <label data-i18n="amount">المبلغ</label><input id="txAmount" type="number" step="0.01" required />
+        <label data-i18n="date">التاريخ</label><input id="txDate" type="date" required />
+        <label data-i18n="transactionScope">نطاق الحركة</label>
+        <select id="txScope">
+          <option value="auto" data-i18n="autoScope">تلقائي حسب التاريخ</option>
+          <option value="daily" data-i18n="daily">يومي</option>
+          <option value="weekly" data-i18n="weekly">أسبوعي</option>
+          <option value="monthly" data-i18n="monthly">شهري</option>
+        </select>
+        <label data-i18n="installments">عدد الأقساط</label><input id="txInstallments" type="number" min="1" value="1" />
+        <label data-i18n="note">ملاحظات</label><textarea id="txNote"></textarea>
+      </div>
+      <div class="modal-actions"><button type="button" class="pill" data-close-dialog data-i18n="cancel">إلغاء</button><button type="button" id="saveTransactionBtn" value="default" class="diamond success" data-i18n="save">حفظ</button></div>
+    </form>
+  </dialog>
+
+
+  <dialog id="paymentDialog" class="modal glass">
+    <form id="paymentForm">
+      <h3 data-i18n="salarySettlement">تسوية ودفع مرتب</h3>
+      <div class="form-grid">
+        <input type="hidden" id="payEmployeeDocId" />
+        <label data-i18n="employee">الموظف</label><input id="payEmployeeName" readonly />
+        <label data-i18n="paymentMode">طريقة الحساب</label>
+        <select id="payMode">
+          <option value="daily" data-i18n="daily">يومي</option>
+          <option value="weekly" data-i18n="weekly">أسبوعي</option>
+          <option value="monthly" data-i18n="monthly">شهري</option>
+          <option value="hourly" data-i18n="hourly">بالساعات</option>
+        </select>
+        <label data-i18n="date">التاريخ</label><input id="payDate" type="date" required />
+        <label data-i18n="currentNet">صافي الحساب الحالي</label><input id="payCurrentNet" readonly />
+        <label data-i18n="paidAmount">المبلغ المدفوع</label><input id="payAmount" type="number" step="0.01" required />
+        <label data-i18n="remainingAfterPayment">المتبقي بعد الدفع</label><input id="payRemaining" readonly />
+        <label data-i18n="note">ملاحظات</label><textarea id="payNote"></textarea>
+      </div>
+      <div class="settlement-preview" id="paymentPreview"></div>
+      <div class="modal-actions"><button type="button" class="pill" data-close-dialog data-i18n="cancel">إلغاء</button><button type="button" id="confirmPaymentBtn" value="default" class="diamond success" data-i18n="confirmPayment">تأكيد الدفع</button></div>
+    </form>
+  </dialog>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
