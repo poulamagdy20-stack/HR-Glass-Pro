@@ -1,17 +1,17 @@
-export function initAboutModal(){
-  const btn = document.getElementById('aboutBtn');
-  const dialog = document.getElementById('aboutDialog');
-  const content = document.getElementById('aboutContent');
+export function initAboutModal() {
+  const aboutBtn = document.getElementById('aboutBtn');
+  const aboutDialog = document.getElementById('aboutDialog');
+  const aboutContent = document.getElementById('aboutContent');
 
-  if(!btn || !dialog || !content) return;
+  if (!aboutBtn || !aboutDialog || !aboutContent) return;
 
-  btn.addEventListener('click', () => {
-    content.innerHTML = `
-      <div>HR Glass PRO</div>
-      <div>Version 1.0.0</div>
-      <div>Powered by Alpha</div>
-      <div>Mode: Web/Desktop</div>
-    `;
-    dialog.showModal();
+  aboutBtn.addEventListener('click', () => {
+    aboutContent.innerHTML = [
+      'HR Glass PRO',
+      'Version 1.0.0',
+      'Powered by Alpha',
+      'Mode: Web/Desktop'
+    ].map(line => `<div>${line}</div>`).join('');
+    aboutDialog.showModal();
   });
 }
